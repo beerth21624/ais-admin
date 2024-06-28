@@ -108,6 +108,13 @@ const SideNav = () => {
                 {!isCollapsed && "คลังความรู้"}
               </Sidebar.Item>
               <Sidebar.Item
+                href="/problem"
+                icon={HiUser}
+                active={path === "problem"}
+              >
+                {!isCollapsed && "ปัญหา"}
+              </Sidebar.Item>
+              <Sidebar.Item
                 href="/call-center"
                 icon={HiUser}
                 active={path === "call-center"}

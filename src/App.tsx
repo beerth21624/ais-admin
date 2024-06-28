@@ -11,6 +11,8 @@ import LoginPage from './screens/login/LoginPage';
 import CallCenterPage from './screens/callCenter/CallCenterPage';
 import CustomerFullProfilePage from './screens/callCenter/CutomerFullProfilePage';
 import CallCenterViewPage from './screens/callCenter/CallCenterViewPage';
+import NewsPage from './screens/news/NewsPage';
+import NewProblemPage from './screens/newProblem/NewProblemPage';
 import Notfound from './components/common/Notfound';
 
 function App() {
@@ -52,6 +54,8 @@ function App() {
                   <Route path="/call-center" element={<CallCenterPage />} />
                   <Route path="/customer-full-profile" element={<CustomerFullProfilePage />} />
                   <Route path="/call-center-view" element={<CallCenterViewPage />} />
+                  <Route path="/news" element={<NewsPage />} />
+                  <Route path="/problem" element={<NewProblemPage />} />
                 </Route>
                 <Route path="*" element={<Notfound />} />
               </Routes>
