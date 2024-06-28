@@ -1,7 +1,7 @@
 import { Button, Card, Modal, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import { FaCheck, FaFolder, FaSearch } from 'react-icons/fa'
-import Nodata from '../../../components/Nodata'
+import Nodata from '../../../components/common/Nodata'
 
 // service
 import { CharacterService } from '../../../services'

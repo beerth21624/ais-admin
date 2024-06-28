@@ -1,4 +1,4 @@
-import NodataSvg from '../assets/noData.svg'; // Import the SVG file directly
+import NodataSvg from '../../assets/noData.svg'; // Import the SVG file directly
 
 const Nodata = () => {
     return (

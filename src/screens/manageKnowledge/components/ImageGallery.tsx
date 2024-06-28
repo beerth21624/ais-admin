@@ -5,7 +5,7 @@ import { HiPencil, HiPlus, HiTrash } from 'react-icons/hi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import * as Yup from 'yup';
-import Nodata from '../../../components/Nodata';
+import Nodata from '../../../components/common/Nodata';
 const MySwal = withReactContent(Swal)
 
 //service

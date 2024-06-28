@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { HiSearch } from 'react-icons/hi'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Nodata from '../../components/Nodata'
+import Nodata from '../../components/common/Nodata'
 import CharacterCard from './components/CharacterCard'
 import ModalActionCharacter from './components/ModalActionCharacter'
 const MySwal = withReactContent(Swal)

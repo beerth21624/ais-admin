@@ -90,16 +90,13 @@ const CharacterDetailPage: React.FC = () => {
         setIsKnowledgeModalOpen(true);
     };
 
-
     const handleDeleteKnowledge = (id: string) => {
         setKnowledgeItems(knowledgeItems.filter(item => item.id !== id));
     };
 
-
     if (!character) {
         return <div>Loading...</div>;
     }
-
 
     function openLoading() {
         MySwal.fire({
@@ -195,10 +192,6 @@ const CharacterDetailPage: React.FC = () => {
             })
         }
     }
-
-
-
-
 
     return (
         <div>
