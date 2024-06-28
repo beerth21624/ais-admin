@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Card,
     TextInput,
@@ -26,15 +27,9 @@ import {
 } from 'react-icons/hi';
 
 const CustomerFullProfilePage: React.FC = () => {
-    const [tags, setTags] = useState<string[]>(['ลูกค้า VIP', 'โทรบ่อย']);
-    const [newTag, setNewTag] = useState('');
+    const navigate = useNavigate();
 
-    const addTag = () => {
-        if (newTag && !tags.includes(newTag)) {
-            setTags([...tags, newTag]);
-            setNewTag('');
-        }
-    };
+
 
     return (
         <div className=" ">
@@ -42,7 +37,7 @@ const CustomerFullProfilePage: React.FC = () => {
                 <div className="flex items-center justify-between w-full">
                 <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8">ข้อมูลลูกค้า</h1>
                 <Button color="light" onClick={()=>{
-                    window.location.href = '/call-center'
+                  navigate('/call-center-detail')
                 }}>
                     ย้อนกลับ
                 </Button>

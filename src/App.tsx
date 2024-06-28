@@ -13,6 +13,7 @@ import CustomerFullProfilePage from './screens/callCenter/CutomerFullProfilePage
 import CallCenterViewPage from './screens/callCenter/CallCenterViewPage';
 import NewsPage from './screens/news/NewsPage';
 import NewProblemPage from './screens/newProblem/NewProblemPage';
+import DashboardPage from './screens/dashboard/DashboardPage';
 import Notfound from './components/common/Notfound';
 
 function App() {
@@ -47,15 +48,17 @@ function App() {
                   isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
                 } />
                 <Route element={<PrivateRoute />}>
-                  <Route path="/" element={<ManageCharacter />} />
+                  <Route path="/" element={<DashboardPage />} />
+                  <Route path="/manage-character" element={<ManageCharacter />} />
                   <Route path="/character-detail/:id" element={<CharacterDetailPage />} />
                   <Route path="/manage-knowledge" element={<ManageKnowledgeView />} />
                   <Route path="/training/:id" element={<TrainingPage />} />
-                  <Route path="/call-center" element={<CallCenterPage />} />
+                  <Route path="/call-center-detail" element={<CallCenterPage />} />
                   <Route path="/customer-full-profile" element={<CustomerFullProfilePage />} />
-                  <Route path="/call-center-view" element={<CallCenterViewPage />} />
+                  <Route path="/call-center" element={<CallCenterViewPage />} />
                   <Route path="/news" element={<NewsPage />} />
                   <Route path="/problem" element={<NewProblemPage />} />
+                  <Route path="/dashboard" element={<DashboardPage />} />
                 </Route>
                 <Route path="*" element={<Notfound />} />
               </Routes>

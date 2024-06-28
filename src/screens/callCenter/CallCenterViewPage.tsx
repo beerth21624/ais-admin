@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Card,
     Table,
@@ -23,6 +24,7 @@ interface IncomingCall {
 }
 
 const CallCenterViewPage: React.FC = () => {
+    const navigate = useNavigate();
     const [calls, setCalls] = useState<IncomingCall[]>([
         { id: '1', name: 'สมชาย ใจดี', phoneNumber: '081-234-5678', waitTime: 120, issue: 'ปัญหาการเชื่อมต่อ', status: 'รอสาย', priority: 'ปานกลาง' },
         { id: '2', name: 'สมหญิง รักดี', phoneNumber: '089-876-5432', waitTime: 60, issue: 'สอบถามยอดค้างชำระ', status: 'กำลังสนทนา', priority: 'ต่ำ' },
@@ -41,7 +43,7 @@ const CallCenterViewPage: React.FC = () => {
     const handleTransferToCallCenter = () => {
         console.log('Transferring call to main call center:', selectedCall);
         setIsModalOpen(false);
-        // Logic to transfer call
+        navigate('/call-center-detail');
     };
 
     const renderCallTable = (status: 'รอสาย' | 'กำลังสนทนา') => (

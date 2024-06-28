@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Button,
     Card,
@@ -25,6 +26,7 @@ import {
 } from 'react-icons/hi';
 
 const CallCenterPage: React.FC = () => {
+    const navigate = useNavigate();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [tags, setTags] = useState<string[]>(['ลูกค้า VIP', 'โทรบ่อย']);
     const [newTag, setNewTag] = useState('');
@@ -49,7 +51,12 @@ const CallCenterPage: React.FC = () => {
                 {isSidebarCollapsed ? <HiOutlineChevronDoubleRight /> : <HiOutlineChevronDoubleLeft />}
             </Button>
             <div className="flex-1">
+                <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold mb-6">call center หลานเอง</h1>
+                <Button color="light" onClick={() => navigate('/call-center')}>
+                  ย้อนกลับ
+                    </Button>
+                    </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <Card className="lg:col-span-2">
                         <h5 className="text-xl font-bold mb-2">หน้าจอลูกค้า</h5>
@@ -103,7 +110,9 @@ const CallCenterPage: React.FC = () => {
                             />
 
                             <div className="flex flex-col sm:flex-row justify-between gap-2">
-                                <Button color="light" className="w-full sm:w-auto">ดูโปรไฟล์ทั้งหมด</Button>
+                                <Button color="light" className="w-full sm:w-auto"
+                                    onClick={() => navigate('/customer-full-profile')}
+                                >ดูโปรไฟล์ทั้งหมด</Button>
                                 <Button color="success" className="w-full sm:w-auto">บันทึกการเปลี่ยนแปลง</Button>
                             </div>
                         </div>

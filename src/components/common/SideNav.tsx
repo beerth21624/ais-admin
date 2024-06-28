@@ -96,7 +96,14 @@ const SideNav = () => {
               <Sidebar.Item
                 href="/"
                 icon={HiUser}
-                active={path === "character-detail" || path === ""}
+                active={path === ""}
+              >
+                {!isCollapsed && "แดชบอร์ด"}
+              </Sidebar.Item>
+              <Sidebar.Item
+                href="/manage-character"
+                icon={HiUser}
+                active={path === "character-detail" || path === "manage-character"}
               >
                 {!isCollapsed && "หลาน"}
               </Sidebar.Item>
