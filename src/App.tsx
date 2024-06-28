@@ -8,6 +8,7 @@ import CharacterDetailPage from './screens/manageCharacter/CharacterDetailPage';
 import ManageKnowledgeView from './screens/manageKnowledge/ManageKnowledgeView';
 import TrainingPage from './screens/manageKnowledge/TrainingPage';
 import LoginPage from './screens/login/LoginPage';
+import Notfound from './components/common/Notfound';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -46,7 +47,7 @@ function App() {
                   <Route path="/manage-knowledge" element={<ManageKnowledgeView />} />
                   <Route path="/training/:id" element={<TrainingPage />} />
                 </Route>
-                <Route path="*" element={<h1>Not Found</h1>} />
+                <Route path="*" element={<Notfound />} />
               </Routes>
             </div>
           </div>
