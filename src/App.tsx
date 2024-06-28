@@ -8,6 +8,9 @@ import CharacterDetailPage from './screens/manageCharacter/CharacterDetailPage';
 import ManageKnowledgeView from './screens/manageKnowledge/ManageKnowledgeView';
 import TrainingPage from './screens/manageKnowledge/TrainingPage';
 import LoginPage from './screens/login/LoginPage';
+import CallCenterPage from './screens/callCenter/CallCenterPage';
+import CustomerFullProfilePage from './screens/callCenter/CutomerFullProfilePage';
+import CallCenterViewPage from './screens/callCenter/CallCenterViewPage';
 import Notfound from './components/common/Notfound';
 
 function App() {
@@ -46,6 +49,9 @@ function App() {
                   <Route path="/character-detail/:id" element={<CharacterDetailPage />} />
                   <Route path="/manage-knowledge" element={<ManageKnowledgeView />} />
                   <Route path="/training/:id" element={<TrainingPage />} />
+                  <Route path="/call-center" element={<CallCenterPage />} />
+                  <Route path="/customer-full-profile" element={<CustomerFullProfilePage />} />
+                  <Route path="/call-center-view" element={<CallCenterViewPage />} />
                 </Route>
                 <Route path="*" element={<Notfound />} />
               </Routes>

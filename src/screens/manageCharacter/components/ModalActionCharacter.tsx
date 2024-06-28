@@ -51,16 +51,22 @@ const ModalActionCharacter: React.FC<Props> = ({
   };
 
   const handleSubmit = (values: CharacterData) => {
+    console.log("values", values)
     if (character) {
       onSubmit(values);
     } else {
       if (!values.image) return;
-      //form append
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("description", values.description);
       formData.append("prompt", values.prompt);
       formData.append("image", values.image);
+
+      //log formData
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      
       onSubmit(formData);
     }
   };

@@ -8,10 +8,8 @@ import CharacterCard from './components/CharacterCard'
 import ModalActionCharacter from './components/ModalActionCharacter'
 const MySwal = withReactContent(Swal)
 
-
 //service
 import { CharacterService } from '../../services'
-
 
 type Character = {
   name: string;
@@ -22,22 +20,19 @@ type Character = {
   record_status?: string;
 }
 
-
-
 const ManageCharacterView = () => {
-  const [isOpenActionModal,setIsOpenActionModal]=useState<boolean>(false)
-  const [characters,setCharacters]=useState<Character[]>([])
+  const [isOpenActionModal, setIsOpenActionModal] = useState<boolean>(false)
+  const [characters, setCharacters] = useState<Character[]>([])
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     callCharacterApi()
-  },[])
+  }, [])
 
   const callCharacterApi = async () => {
     openLoading()
     try {
       const response = await CharacterService.getCharacters()
-      console.log(response.data)
       setCharacters(response.data)
     } catch (e) {
       console.log(e)
@@ -46,23 +41,21 @@ const ManageCharacterView = () => {
     }
   }
 
-
-  const CallApiCreateCharacter=async(character:any)=>{
-    try{
+  const CallApiCreateCharacter = async (character: any) => {
+    try {
       openLoading()
       const response = await CharacterService.createCharacter(character)
-      if(response.status===201){
-      MySwal.fire({
-        icon: 'success',
-        title: 'สำเร็จ!',
-        text: 'เพิ่มหลานสำเร็จ',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-      callCharacterApi()
-    }
-
-    }catch(e){
+      if (response.status === 201) {
+        MySwal.fire({
+          icon: 'success',
+          title: 'สำเร็จ!',
+          text: 'เพิ่มหลานสำเร็จ',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        callCharacterApi()
+      }
+    } catch (e) {
       MySwal.fire({
         icon: 'error',
         title: 'เกิดข้อผิดพลาด',
@@ -85,6 +78,10 @@ const ManageCharacterView = () => {
     MySwal.close()
   }
 
+  // Filter characters based on search term
+  const filteredCharacters = characters.filter(character =>
+    character.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="w-full flex flex-col h-full">
@@ -104,26 +101,26 @@ const ManageCharacterView = () => {
           }}
         >เพิ่มหลาน</Button>
       </div>
-      {characters.length>0?(
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {characters.map((character, index) => (
-          <CharacterCard key={index} character={character} />
-        ))}
-      </div>
+      {filteredCharacters.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filteredCharacters.map((character, index) => (
+            <CharacterCard key={index} character={character} />
+          ))}
+        </div>
       ) : (
-      <div className='flex flex-col items-center justify-center h-full'>
-        <Nodata />
-      </div>
+        <div className='flex flex-col items-center justify-center h-full'>
+          <Nodata />
+        </div>
       )}
-      <ModalActionCharacter 
+      <ModalActionCharacter
         isOpen={isOpenActionModal}
-      onClose={()=>{
-        setIsOpenActionModal(false)
-      }}
-       onSubmit={(formData) => { 
-         CallApiCreateCharacter(formData)
-        setIsOpenActionModal(false)
-       }}
+        onClose={() => {
+          setIsOpenActionModal(false)
+        }}
+        onSubmit={(formData) => {
+          CallApiCreateCharacter(formData)
+          setIsOpenActionModal(false)
+        }}
       />
     </div>
   )

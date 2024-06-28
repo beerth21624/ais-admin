@@ -107,6 +107,20 @@ const SideNav = () => {
               >
                 {!isCollapsed && "คลังความรู้"}
               </Sidebar.Item>
+              <Sidebar.Item
+                href="/call-center"
+                icon={HiUser}
+                active={path === "call-center"}
+              >
+                {!isCollapsed && "Call Center"}
+              </Sidebar.Item>
+              <Sidebar.Item
+                href="/news"
+                icon={HiUser}
+                active={path === "news"}
+              >
+                {!isCollapsed && "ข่าว"}
+              </Sidebar.Item>
             </>
           )}
 
