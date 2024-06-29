@@ -1,15 +1,15 @@
-import { Badge, Button, Card, Table } from 'flowbite-react';
+import { Badge, Button, Card } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { HiOutlineChatAlt2, HiOutlineInformationCircle, HiPencil, HiPlus, HiTrash } from 'react-icons/hi';
+import { HiOutlineChatAlt2, HiOutlineInformationCircle, HiPencil, HiTrash } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ModalActionCharacter from './components/ModalActionCharacter';
-import ModalAssignKnowledge from './components/ModalAssignKnowledge';
 const MySwal = withReactContent(Swal)
+import AssignKnowledgeSection from './components/AssignKnowledgeSection';
 
 //services
-import { CharacterService, FolderService } from '../../services';
+import { CharacterService } from '../../services';
 
 type Character = {
     id?: string;
@@ -22,49 +22,27 @@ type Character = {
     record_status: string
 };
 
-type KnowledgeItem = {
-    id: string;
-    question: string;
-    answer: string;
-};
+
 
 const CharacterDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    console.log("id", id)
     const [character, setCharacter] = useState<Character | null>(null);
-    const [knowledgeItems, setKnowledgeItems] = useState<KnowledgeItem[]>([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isKnowledgeModalOpen, setIsKnowledgeModalOpen] = useState(false);
-    const [folders, setFolders] = useState<any[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
             callCharacterApi()
-
-            setKnowledgeItems([
-                { id: '1', question: 'หลานเองชอบทำอะไร?', answer: 'หลานเองชอบวาดรูปและเล่นกีฬา' },
-                { id: '2', question: 'หลานเองเรียนที่ไหน?', answer: 'หลานเองเรียนอยู่ที่โรงเรียนสวนสุนันทา' },
-            ]);
+          
         };
 
         fetchData();
-        fetchFolders()
 
     }, []);
 
     useEffect(() => {
     }, [])
 
-    const fetchFolders = async () => {
-        try {
-            const response = await FolderService.getFolders()
-            if (response.data) {
-                setFolders(response.data)
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
+  
 
 
 
@@ -76,20 +54,14 @@ const CharacterDetailPage: React.FC = () => {
             setCharacter(response.data)
         } catch (e) {
             console.log(e)
-        } 
+        } finally {
+        }
     }
 
     const handleEditCharacter = () => {
         setIsEditModalOpen(true);
     };
 
-    const handleAddKnowledge = () => {
-        setIsKnowledgeModalOpen(true);
-    };
-
-    const handleDeleteKnowledge = (id: string) => {
-        setKnowledgeItems(knowledgeItems.filter(item => item.id !== id));
-    };
 
     if (!character) {
         return <div>Loading...</div>;
@@ -217,36 +189,10 @@ const CharacterDetailPage: React.FC = () => {
                         </div>
                     </div>
                 </Card>
+                <AssignKnowledgeSection 
+                character_id={id}
+                />
 
-                <h2 className="text-xl font-semibold mt-8 mb-4">ความรู้ของหลานเอง</h2>
-                <Button color="success" onClick={handleAddKnowledge} className="mb-4">
-                    <HiPlus className="mr-2" /> เพิ่มความรู้
-                </Button>
-                <Table>
-                    <Table.Head>
-                        <Table.HeadCell>คำถาม</Table.HeadCell>
-                        <Table.HeadCell>คำตอบ</Table.HeadCell>
-                        <Table.HeadCell>การจัดการ</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body>
-                        {knowledgeItems.map((item) => (
-                            <Table.Row key={item.id}>
-                                <Table.Cell>{item.question}</Table.Cell>
-                                <Table.Cell>{item.answer}</Table.Cell>
-                                <Table.Cell>
-                                    <Button.Group>
-                                        <Button color="info" >
-                                            <HiPencil />
-                                        </Button>
-                                        <Button color="failure" onClick={() => handleDeleteKnowledge(item.id)}>
-                                            <HiTrash />
-                                        </Button>
-                                    </Button.Group>
-                                </Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
               
             </div>
             <div className='flex justify-start'>
@@ -254,15 +200,7 @@ const CharacterDetailPage: React.FC = () => {
                     ย้อนกลับ
                 </Button>
             </div>
-            <ModalAssignKnowledge
-                character_id={id}
-                isOpen={isKnowledgeModalOpen}
-                onClose={() => {
-                    setIsKnowledgeModalOpen(false)
-                }}
-                folders={folders}
-           
-            />
+  
             <ModalActionCharacter
                 character={{
                     ...character,
