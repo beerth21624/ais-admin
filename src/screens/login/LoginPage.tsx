@@ -1,9 +1,8 @@
+import { Alert, Button, Card, Label, TextInput } from 'flowbite-react';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import React from 'react';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { HiLockClosed, HiUser } from 'react-icons/hi';
 import * as Yup from 'yup';
-import { Button, Card, Label, TextInput, Alert } from 'flowbite-react';
-import { HiUser, HiLockClosed } from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
 import { UserService } from '../../services';
 
 interface LoginFormValues {
@@ -17,7 +16,6 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginPage: React.FC = () => {
-    const navigate = useNavigate();
     const [error, setError] = React.useState<string | null>(null);
 
     const handleSubmit = async (

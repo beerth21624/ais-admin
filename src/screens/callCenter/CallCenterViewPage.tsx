@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-    Card,
-    Table,
     Badge,
     Button,
-    Modal,
+    Card,
     Label,
+    Modal,
+    Table,
+    Tabs,
     TextInput,
-    Textarea,
-    Tabs
+    Textarea
 } from 'flowbite-react';
-import { HiPhone, HiUser, HiClock, HiTag, HiChat, HiExclamation } from 'react-icons/hi';
+import React, { useState } from 'react';
+import { HiChat, HiClock, HiExclamation, HiPhone, HiTag, HiUser } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 interface IncomingCall {
     id: string;
@@ -25,7 +25,7 @@ interface IncomingCall {
 
 const CallCenterViewPage: React.FC = () => {
     const navigate = useNavigate();
-    const [calls, setCalls] = useState<IncomingCall[]>([
+    const [calls] = useState<IncomingCall[]>([
         { id: '1', name: 'สมชาย ใจดี', phoneNumber: '081-234-5678', waitTime: 120, issue: 'ปัญหาการเชื่อมต่อ', status: 'รอสาย', priority: 'ปานกลาง' },
         { id: '2', name: 'สมหญิง รักดี', phoneNumber: '089-876-5432', waitTime: 60, issue: 'สอบถามยอดค้างชำระ', status: 'กำลังสนทนา', priority: 'ต่ำ' },
         { id: '3', name: 'มานี มีเงิน', phoneNumber: '062-345-6789', waitTime: 30, issue: 'ต้องการยกเลิกบริการ', status: 'รอสาย', priority: 'สูง' },

@@ -1,43 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
+    Avatar,
+    Badge,
     Button,
     Card,
-    TextInput,
-    Badge,
-    Timeline,
     Dropdown,
+    TextInput,
     Textarea,
-    Avatar
+    Timeline
 } from 'flowbite-react';
+import React, { useState } from 'react';
 import {
-    HiPhone,
-    HiVideoCamera,
+    HiCalendar,
     HiChat,
     HiDesktopComputer,
-    HiUser,
-    HiOutlineChevronDoubleRight,
-    HiOutlineChevronDoubleLeft,
-    HiMail,
     HiLocationMarker,
-    HiCalendar,
-    HiTag,
-    HiPlus
+    HiMail,
+    HiOutlineChevronDoubleLeft,
+    HiOutlineChevronDoubleRight,
+    HiPhone,
+    HiUser,
+    HiVideoCamera
 } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 const CallCenterPage: React.FC = () => {
     const navigate = useNavigate();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const [tags, setTags] = useState<string[]>(['ลูกค้า VIP', 'โทรบ่อย']);
-    const [newTag, setNewTag] = useState('');
-
-    const addTag = () => {
-        if (newTag && !tags.includes(newTag)) {
-            setTags([...tags, newTag]);
-            setNewTag('');
-        }
-    };
-
     const toggleSidebar = () => {
         setIsSidebarCollapsed(!isSidebarCollapsed);
     };

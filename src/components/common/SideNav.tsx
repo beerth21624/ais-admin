@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import type { CustomFlowbiteTheme } from "flowbite-react";
-import { useNavigate } from 'react-router-dom';
 import { Sidebar } from "flowbite-react";
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal)
@@ -9,8 +8,8 @@ const MySwal = withReactContent(Swal)
 import {
   HiArrowSmRight,
   HiColorSwatch,
-  HiUser,
   HiMenu,
+  HiUser,
 } from "react-icons/hi";
 
 const theme: CustomFlowbiteTheme["sidebar"] = {
@@ -29,7 +28,6 @@ const theme: CustomFlowbiteTheme["sidebar"] = {
 };
 
 const SideNav = () => {
-  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = window.location.pathname;
   const path = location.split("/")[1];

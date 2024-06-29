@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
 import {
-    Card,
-    Table,
     Badge,
     Button,
-    Modal,
+    Card,
     Label,
+    Modal,
+    Select,
+    Table,
     TextInput,
-    Textarea,
-    Select
+    Textarea
 } from 'flowbite-react';
-import { HiPlus, HiPencil, HiTrash, HiEye } from 'react-icons/hi';
+import React, { useState } from 'react';
+import { HiEye, HiPencil, HiPlus, HiTrash } from 'react-icons/hi';
 
 interface NewsItem {
     id: string;

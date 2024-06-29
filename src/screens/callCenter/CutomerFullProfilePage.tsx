@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
-    Card,
-    TextInput,
-    Dropdown,
+    Avatar,
     Badge,
     Button,
-    Textarea,
-    Avatar,
-    Tabs,
+    Card,
+    Progress,
     Table,
-    Progress
+    Tabs,
+    TextInput,
+    Textarea
 } from 'flowbite-react';
+import React from 'react';
 import {
-    HiUser,
-    HiPhone,
-    HiMail,
-    HiLocationMarker,
     HiCalendar,
-    HiTag,
-    HiPlus,
-    HiCreditCard,
-    HiShoppingCart,
     HiChatAlt,
+    HiCreditCard,
     HiDocumentText,
+    HiLocationMarker,
+    HiMail,
+    HiPhone,
+    HiShoppingCart,
+    HiUser
 } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 const CustomerFullProfilePage: React.FC = () => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
+import { Avatar, Badge, Card, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Badge, Button, Avatar } from 'flowbite-react';
-import { HiOutlineUsers, HiOutlineChat, HiOutlineDocumentText, HiOutlineChartPie, HiArrowUp, HiArrowDown } from 'react-icons/hi';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { HiOutlineChartPie, HiOutlineChat, HiOutlineDocumentText, HiOutlineUsers } from 'react-icons/hi';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

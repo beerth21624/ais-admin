@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
 import {
-    Card,
-    Table,
     Badge,
     Button,
-    Modal,
+    Card,
     Label,
-    TextInput,
-    Textarea,
+    Modal,
     Select,
-    Pagination
+    Table,
+    TextInput,
+    Textarea
 } from 'flowbite-react';
-import { HiOutlineEye, HiOutlineCheck, HiOutlineX, HiOutlineQuestionMarkCircle } from 'react-icons/hi';
+import React, { useState } from 'react';
+import { HiOutlineCheck, HiOutlineEye, HiOutlineQuestionMarkCircle } from 'react-icons/hi';
 
 interface NewContent {
     id: string;
@@ -32,7 +31,6 @@ const NewProblemPage: React.FC = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedContent, setSelectedContent] = useState<NewContent | null>(null);
-    const [currentPage, setCurrentPage] = useState(1);
 
     const handleContentAction = (content: NewContent) => {
         setSelectedContent(content);
@@ -47,7 +45,6 @@ const NewProblemPage: React.FC = () => {
         );
     };
 
-    const onPageChange = (page: number) => setCurrentPage(page);
 
     return (
         <div>
