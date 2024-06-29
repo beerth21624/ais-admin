@@ -70,16 +70,13 @@ const CharacterDetailPage: React.FC = () => {
 
     const callCharacterApi = async () => {
         if (!id) return;
-        openLoading()
         try {
             const response = await CharacterService.getCharacterById(id)
             console.log(response.data)
             setCharacter(response.data)
         } catch (e) {
             console.log(e)
-        } finally {
-            closeLoading()
-        }
+        } 
     }
 
     const handleEditCharacter = () => {
@@ -98,20 +95,6 @@ const CharacterDetailPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    function openLoading() {
-        MySwal.fire({
-            title: 'กำลังโหลด...',
-            willOpen: () => {
-                MySwal.showLoading()
-            },
-            showConfirmButton: false,
-        })
-    }
-
-    function closeLoading() {
-        MySwal.close()
-    }
-
 
     const callApiUpdateCharacter = async (character: Character) => {
         console.log('character update', character)
@@ -123,7 +106,6 @@ const CharacterDetailPage: React.FC = () => {
             record_status: character.record_status
         }
         try {
-            openLoading()
             const response = await CharacterService.updateCharacter(id, dataForUpdate)
             if (response.status === 200) {
                 MySwal.fire({
@@ -171,7 +153,6 @@ const CharacterDetailPage: React.FC = () => {
     const callApiDeleteCharacter = async () => {
         if (!id) return;
         try {
-            openLoading()
             const response = await CharacterService.deleteCharacter(id)
             if (response.status === 200) {
                 MySwal.fire({

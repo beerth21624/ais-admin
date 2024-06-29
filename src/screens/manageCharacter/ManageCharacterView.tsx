@@ -30,20 +30,16 @@ const ManageCharacterView = () => {
   }, [])
 
   const callCharacterApi = async () => {
-    openLoading()
     try {
       const response = await CharacterService.getCharacters()
       setCharacters(response.data)
     } catch (e) {
       console.log(e)
-    } finally {
-      closeLoading()
     }
   }
 
   const CallApiCreateCharacter = async (character: any) => {
     try {
-      openLoading()
       const response = await CharacterService.createCharacter(character)
       if (response.status === 201) {
         MySwal.fire({
@@ -64,21 +60,8 @@ const ManageCharacterView = () => {
     }
   }
 
-  function openLoading() {
-    MySwal.fire({
-      title: 'กำลังโหลด...',
-      willOpen: () => {
-        MySwal.showLoading()
-      },
-      showConfirmButton: false,
-    })
-  }
 
-  function closeLoading() {
-    MySwal.close()
-  }
 
-  // Filter characters based on search term
   const filteredCharacters = characters.filter(character =>
     character.name.toLowerCase().includes(searchTerm.toLowerCase())
   );

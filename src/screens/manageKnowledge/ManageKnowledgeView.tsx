@@ -36,19 +36,16 @@ const ManageKnowledgeView = () => {
     }, []);
 
     const fetchKnowledge = async () => {
-        openLoading()
-        try{
-        const response = await FolderService.getFolders();
-        setKnowledge(response.data);
+        try {
+            const response = await FolderService.getFolders();
+            setKnowledge(response.data);
         } catch (e) {
             MySwal.fire({
                 icon: 'error',
                 title: 'เกิดข้อผิดพลาด!',
             })
         }
-        finally {
-            closeLoading()
-        }
+     
     };
 
 
@@ -73,7 +70,6 @@ const ManageKnowledgeView = () => {
     );
 
     const onSubmitFolder = async (formData: any) => {
-        openLoading()
         try {
             const response = await FolderService.createFolder(formData);
             if (response.data) {
@@ -92,14 +88,11 @@ const ManageKnowledgeView = () => {
                 title: 'เกิดข้อผิดพลาด!',
             })
         }
-        finally {
-            closeLoading()
-        }
+      
     }
 
     const onSubmitEditFolder = async (formData: any) => {
-        if(!selectedFolderForAction) return
-        openLoading()
+        if (!selectedFolderForAction) return
         try {
             const response = await FolderService.updateFolder(selectedFolderForAction?._id, formData);
             if (response.data) {
@@ -119,7 +112,6 @@ const ManageKnowledgeView = () => {
             })
         }
         finally {
-            closeLoading()
             setSelectedFolderForAction(null)
         }
     }
@@ -141,7 +133,6 @@ const ManageKnowledgeView = () => {
     const deleteFolder = async (folder_id: string) => {
 
 
-        openLoading()
         try {
             const response = await FolderService.deleteFolder(folder_id);
             if (response.data) {
@@ -160,26 +151,10 @@ const ManageKnowledgeView = () => {
                 title: 'เกิดข้อผิดพลาด!',
             })
         }
-        finally {
-            closeLoading()
-        }
+        
     }
 
 
-
-    function openLoading() {
-        MySwal.fire({
-            title: 'กำลังโหลด...',
-            willOpen: () => {
-                MySwal.showLoading()
-            },
-            showConfirmButton: false,
-        })
-    }
-
-    function closeLoading() {
-        MySwal.close()
-    }
     return (
         <div className="w-full flex flex-col h-full">
             <div>
@@ -257,9 +232,9 @@ const ManageKnowledgeView = () => {
                 </Table>
             </div>
             {filteredKnowledge.length <= 0 ? (
-            <div className='flex flex-col items-center justify-center h-full'>
-                <Nodata />
-            </div>
+                <div className='flex flex-col items-center justify-center h-full'>
+                    <Nodata />
+                </div>
             ) : null}
             <ModalActionKnowledge
                 isOpen={isOpenActionModal}
@@ -270,14 +245,14 @@ const ManageKnowledgeView = () => {
                 onSubmit={(formData) => {
                     if (selectedFolderForAction) {
                         onSubmitEditFolder(formData)
-                    }else{
-                    onSubmitFolder(formData)
+                    } else {
+                        onSubmitFolder(formData)
                     }
                     setIsOpenActionModal(false)
                 }}
                 folder={selectedFolderForAction}
             />
-             
+
         </div>
     )
 }

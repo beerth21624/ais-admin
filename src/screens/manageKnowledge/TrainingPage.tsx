@@ -10,9 +10,6 @@ import ImageGallery from './components/ImageGallery';
 import KnowledgeQA from './components/KnowledgeQA';
 const MySwal = withReactContent(Swal)
 
-
-
-
 //service
 import { FolderService } from '../../services';
 
@@ -43,7 +40,6 @@ const TrainingPage: React.FC = () => {
 
   const fetchFolderKnowledge = async () => {
     if (!id) return;
-    openLoading()
     try {
       const response = await FolderService.getFolderById(id);
       if (response.data){
@@ -54,9 +50,7 @@ const TrainingPage: React.FC = () => {
       }
     } catch (e) {
       console.log(e)
-    } finally {
-      closeLoading()
-    }
+    } 
   }
 
 
@@ -85,19 +79,7 @@ const TrainingPage: React.FC = () => {
     }
   };
 
-  function openLoading() {
-    MySwal.fire({
-      title: 'กำลังโหลด...',
-      willOpen: () => {
-        MySwal.showLoading()
-      },
-      showConfirmButton: false,
-    })
-  }
 
-  function closeLoading() {
-    MySwal.close()
-  }
 
   return (
     <div className="container mx-auto px-4 py-6">
