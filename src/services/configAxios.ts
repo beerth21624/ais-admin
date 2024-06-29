@@ -1,11 +1,14 @@
 import axios from 'axios';
 
+
+
+
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+
 const axiosInstance = axios.create({
-    // baseURL: 'https://ais-be.tu4rl4.easypanel.host',
-        baseURL: 'http://localhost:8080',
-  
-    
+  baseURL: BASE_URL,
 });
+
 
 axiosInstance.interceptors.request.use(
     (config) => {
