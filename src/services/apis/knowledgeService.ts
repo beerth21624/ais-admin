@@ -32,6 +32,14 @@ class KnowledgeService {
         return axiosInstance.post(`${this.PATH}/image/${folderId}`, item);
     }
 
+    static async updateKnowledgeQA(folderId:string,qa_id:string ,item:any) {
+        return axiosInstance.patch(`${this.PATH}/qa/${folderId}/${qa_id}`, item);
+    }
+
+    static async updateKnowledgeImage(folderId:string,image_id:string ,item:any) {
+        return axiosInstance.patch(`${this.PATH}/image/${folderId}/${image_id}`, item);
+    }
+
     static async deleteKnowledgeQA(folderId:string, qa_id:string) {
         return axiosInstance.delete(`${this.PATH}/qa/${folderId}/${qa_id}`);
     }

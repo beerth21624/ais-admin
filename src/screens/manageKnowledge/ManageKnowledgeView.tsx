@@ -209,7 +209,7 @@ const ManageKnowledgeView = () => {
                                         >
                                             <HiBookOpen className="h-5 w-5" />
                                         </Button>
-                                        <Button size="sm" color="light" onClick={() => {
+                                        <Button size="sm" color="warning" onClick={() => {
                                             setSelectedFolderForAction(item)
                                             setIsOpenActionModal(true)
                                         }

@@ -36,6 +36,12 @@ class CharacterService {
     static async getCharacterKnowledge(id: string) {
         return axiosInstance.get(`${this.PATH}/knowledge/${id}`);
     }
+
+    static async deleteCharacterKnowledge(id: string, params: any) {
+        return axiosInstance.delete(`${this.PATH}/knowledge/${id}`, { data: params });
+    }
+
+
 }
 
 export default CharacterService;

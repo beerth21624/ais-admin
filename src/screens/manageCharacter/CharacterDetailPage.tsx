@@ -4,9 +4,9 @@ import { HiOutlineChatAlt2, HiOutlineInformationCircle, HiPencil, HiTrash } from
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import AssignKnowledgeSection from './components/AssignKnowledgeSection';
 import ModalActionCharacter from './components/ModalActionCharacter';
 const MySwal = withReactContent(Swal)
-import AssignKnowledgeSection from './components/AssignKnowledgeSection';
 
 //services
 import { CharacterService } from '../../services';
@@ -148,14 +148,19 @@ const CharacterDetailPage: React.FC = () => {
 
     return (
         <div>
+            <div className='flex justify-end'>
+                <Button color="light" onClick={() => window.history.back()} className="mb-4">
+                    ย้อนกลับ
+                </Button>
+            </div>
             <div className="container mx-auto p-4">
                 <Card className=" mx-auto shadow-lg">
                     <div className="flex flex-col md:flex-row">
-                        <div className="md:w-1/3 mb-4 md:mb-0">
+                        <div className="md:w-1/3 mb-4 md:mb-0 ">
                             <img
                                 src={character.image_url}
                                 alt={character.name}
-                                className="w-full h-96 object-contain rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+                                className="w-full h-80 object-contain rounded-lg transition-transform duration-300 hover:scale-105 p-4 border"
                             />
                         </div>
                         <div className="md:w-2/3 md:pl-6">
@@ -195,11 +200,7 @@ const CharacterDetailPage: React.FC = () => {
 
               
             </div>
-            <div className='flex justify-start'>
-                <Button color="light" onClick={() => window.history.back()} className="mb-4">
-                    ย้อนกลับ
-                </Button>
-            </div>
+         
   
             <ModalActionCharacter
                 character={{

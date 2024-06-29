@@ -8,36 +8,42 @@ import {
     Textarea,
     Timeline
 } from 'flowbite-react';
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
     HiCalendar,
     HiChat,
     HiDesktopComputer,
     HiLocationMarker,
     HiMail,
-    HiOutlineChevronDoubleLeft,
-    HiOutlineChevronDoubleRight,
     HiPhone,
     HiUser,
     HiVideoCamera
 } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import io, { Socket } from 'socket.io-client';
+
+
+
 
 const CallCenterPage: React.FC = () => {
     const navigate = useNavigate();
-    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const toggleSidebar = () => {
-        setIsSidebarCollapsed(!isSidebarCollapsed);
-    };
+    const socketRef = useRef<Socket | null>(null);
+
+    useEffect(() => {
+        socketRef.current = io('http://localhost:8080');
+
+        return () => {
+            socketRef.current?.disconnect();
+        };
+    }, []);
+
+
+
+
 
     return (
         <div className="flex flex-col lg:flex-row ">
-            <Button
-                onClick={toggleSidebar}
-                className="lg:absolute lg:left-0 lg:top-1/2 lg:transform lg:-translate-y-1/2 z-10 mb-4 lg:mb-0"
-            >
-                {isSidebarCollapsed ? <HiOutlineChevronDoubleRight /> : <HiOutlineChevronDoubleLeft />}
-            </Button>
+          
             <div className="flex-1">
                 <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold mb-6">call center หลานเอง</h1>
@@ -48,7 +54,7 @@ const CallCenterPage: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <Card className="lg:col-span-2">
                         <h5 className="text-xl font-bold mb-2">หน้าจอลูกค้า</h5>
-                        <div className="bg-gray-200 h-full  min-h-64 lg:min-h-96 flex items-center justify-center">
+                        <div  className="bg-gray-200 h-full  min-h-64 lg:min-h-96 flex items-center justify-center">
                             <HiDesktopComputer className="w-20 h-20 text-gray-400" />
                         </div>
                         <div className="mt-4 flex flex-wrap gap-2">

@@ -10,6 +10,10 @@ import {
   HiColorSwatch,
   HiMenu,
   HiUser,
+  HiHome,
+  HiExclamationCircle,
+  HiPhone,
+  HiNewspaper
 } from "react-icons/hi";
 
 const theme: CustomFlowbiteTheme["sidebar"] = {
@@ -93,8 +97,9 @@ const SideNav = () => {
             <>
               <Sidebar.Item
                 href="/"
-                icon={HiUser}
+                icon={HiHome}
                 active={path === ""}
+                tooltip="หน้าแรก"
               >
                 {!isCollapsed && "แดชบอร์ด"}
               </Sidebar.Item>
@@ -102,6 +107,7 @@ const SideNav = () => {
                 href="/manage-character"
                 icon={HiUser}
                 active={path === "character-detail" || path === "manage-character"}
+                tooltip="ลูกค้า"
               >
                 {!isCollapsed && "หลาน"}
               </Sidebar.Item>
@@ -109,27 +115,31 @@ const SideNav = () => {
                 href="/manage-knowledge"
                 icon={HiColorSwatch}
                 active={path === "manage-knowledge" || path === "training"}
+                tooltip="คลังความรู้"
               >
                 {!isCollapsed && "คลังความรู้"}
               </Sidebar.Item>
               <Sidebar.Item
                 href="/problem"
-                icon={HiUser}
+                icon={HiExclamationCircle}
                 active={path === "problem"}
+                tooltip="ปัญหา"
               >
                 {!isCollapsed && "ปัญหา"}
               </Sidebar.Item>
               <Sidebar.Item
                 href="/call-center"
-                icon={HiUser}
-                active={path === "call-center"}
+                icon={HiPhone}
+                active={path === "call-center" || path === "call-center-detail" }
+                tooltip="Call Center"
               >
                 {!isCollapsed && "Call Center"}
               </Sidebar.Item>
               <Sidebar.Item
                 href="/news"
-                icon={HiUser}
+                icon={HiNewspaper}
                 active={path === "news"}
+                tooltip="ข่าว"
               >
                 {!isCollapsed && "ข่าว"}
               </Sidebar.Item>

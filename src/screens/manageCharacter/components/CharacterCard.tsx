@@ -29,7 +29,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
                 <img
                     src={character.image_url}
                     alt={character.name}
-                    className="w-full h-56 object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+                    className="w-full h-32  xl:h-56 object-contain transition-transform duration-300 ease-in-out hover:scale-105"
                 />
                 <Badge color={
                     character.record_status==='A'? 'success':'failure'
@@ -39,7 +39,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
                 </Badge>
             </div>
             <div className="p-2">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-ellipsis break-words ">
                     {character.name}
                 </h5>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-3">

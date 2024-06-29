@@ -1,15 +1,14 @@
 import { Button, Modal, Table, TextInput } from 'flowbite-react';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import React from 'react';
-import { HiPencil, HiPlus, HiTrash } from 'react-icons/hi';
+import React, { useState } from 'react';
+import { HiEye, HiPencil, HiPlus, HiTrash } from 'react-icons/hi';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import * as Yup from 'yup';
 import Nodata from '../../../components/common/Nodata';
-const MySwal = withReactContent(Swal)
-
-//service
 import { KnowledgeService } from '../../../services';
+
+const MySwal = withReactContent(Swal);
 
 interface ImageItem {
     _id: string;
@@ -32,13 +31,13 @@ const validationSchema = Yup.object().shape({
         .test('fileType', 'รองรับเฉพาะไฟล์รูปภาพ', (value) => {
             if (!value) return true;
             return ['image/jpeg', 'image/png', 'image/gif'].includes(value.type);
-        }),
+        }).nullable(),
 });
 
 interface ImageGalleryProps {
     folder_id: string | undefined;
     imageItems: ImageItem[];
-    onChangeImageState ?: (imageItems: ImageItem[]) => void;
+    onChangeImageState?: (imageItems: ImageItem[]) => void;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
@@ -46,20 +45,25 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     imageItems,
     onChangeImageState
 }) => {
-    const [isImageModalOpen, setIsImageModalOpen] = React.useState(false);
-    const [editingImageItem, setEditingImageItem] = React.useState<ImageItem | null>(null);
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    const [editingImageItem, setEditingImageItem] = useState<ImageItem | null>(null);
+    const [viewingImageItem, setViewingImageItem] = useState<ImageItem | null>(null);
 
-    
     const initialValues: ImageFormValues = {
         description: editingImageItem?.description || '',
         image: null,
     };
 
-    const handleSubmit = (
+    const handleSubmit = async (
         values: ImageFormValues,
-        { setSubmitting, resetForm }: FormikHelpers<ImageFormValues>
+        { setSubmitting, resetForm ,setFieldError}: FormikHelpers<ImageFormValues>
     ) => {
-        onSaveImage(values);
+        if(!editingImageItem && !values.image){
+            setFieldError('image', 'กรุณาเลือกรูปภาพ');
+            return;
+        }
+
+        await onSaveImage(values);
         setSubmitting(false);
         resetForm();
         onCloseModal();
@@ -73,6 +77,10 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
     const onEditImage = (item: ImageItem) => {
         setEditingImageItem(item);
         setIsImageModalOpen(true);
+    };
+
+    const onViewImage = (item: ImageItem) => {
+        setViewingImageItem(item);
     };
 
     const onDeleteImage = (id: string) => {
@@ -98,60 +106,67 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                             text: 'ลบรูปภาพสำเร็จ',
                             showConfirmButton: false,
                             timer: 1500,
-                        })
+                        });
                     }
                 } catch (error) {
                     MySwal.fire({
                         icon: 'error',
                         title: 'เกิดข้อผิดพลาด!',
-                    })
+                    });
                 }
             }
         });
-
     };
 
     const onCloseModal = () => {
         setIsImageModalOpen(false);
+        setEditingImageItem(null);
     };
 
     const onSaveImage = async (values: ImageFormValues) => {
         try {
             if (!folder_id) return;
-            const formData = new FormData();
-            formData.append('description', values.description);
-            formData.append('image', values.image as File);
 
-                const response = await KnowledgeService.createKnowledgeImage(folder_id, formData);
-                if (response.status === 201) {
-                    onChangeImageState && onChangeImageState(response.data.image_knowledge);
-                    setIsImageModalOpen(false);
-                    MySwal.fire({
-                        icon: 'success',
-                        title: 'สำเร็จ!',
-                        text: `รูปภาพ ${editingImageItem ? 'อัพเดท' : 'เพิ่ม'} สำเร็จ`,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-
+            let response;
+            if (editingImageItem?._id) {
+                const formData = {
+                    description: values.description,
+                    record_status: 'A',
+                };
+                response = await KnowledgeService.updateKnowledgeImage(folder_id, editingImageItem._id, formData);
+            } else {
+                const formData = new FormData();
+                formData.append('description', values.description);
+                if (values.image) {
+                    formData.append('image', values.image);
                 }
+                response = await KnowledgeService.createKnowledgeImage(folder_id, formData);
+            }
+
+            if (response.status === 200 || response.status === 201) {
+                onChangeImageState && onChangeImageState(response.data.image_knowledge);
+                setIsImageModalOpen(false);
+                MySwal.fire({
+                    icon: 'success',
+                    title: 'สำเร็จ!',
+                    text: `รูปภาพ ${editingImageItem ? 'อัพเดท' : 'เพิ่ม'} สำเร็จ`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
         } catch (error) {
             MySwal.fire({
                 icon: 'error',
                 title: 'เกิดข้อผิดพลาด!',
-            })
+            });
         }
     };
 
-
-
     return (
         <div className="mt-2 p-2 ">
-                <div className="flex justify-between items-center mb-4">
-                    <div>
-                <h1 className="text-xl font-bold">
-                    คลังรูปภาพ
-                </h1>
+            <div className="flex justify-between items-center mb-4">
+                <div>
+                    <h1 className="text-xl font-bold">คลังรูปภาพ</h1>
                     <p className='text-sm text-gray-500'>{`ทั้งหมด ${imageItems.length} รายการ `}</p>
                 </div>
                 <Button color="success" onClick={onAddImage}>
@@ -174,7 +189,10 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                             <Table.Cell>{item.description}</Table.Cell>
                             <Table.Cell>
                                 <Button.Group>
-                                    <Button color="info" onClick={() => onEditImage(item)}>
+                                    <Button color="info" onClick={() => onViewImage(item)}>
+                                        <HiEye />
+                                    </Button>
+                                    <Button color="warning" onClick={() => onEditImage(item)}>
                                         <HiPencil />
                                     </Button>
                                     <Button color="failure" onClick={() => onDeleteImage(item._id)}>
@@ -187,13 +205,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                     {imageItems.length === 0 && (
                         <Table.Row>
                             <Table.Cell colSpan={3}>
-                                    <div className='min-h-96 flex items-center justify-center'>
-                                        <Nodata />
-                                    </div>
+                                <div className='min-h-96 flex items-center justify-center'>
+                                    <Nodata />
+                                </div>
                             </Table.Cell>
                         </Table.Row>
                     )}
-
                 </Table.Body>
             </Table>
 
@@ -203,6 +220,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
+                    enableReinitialize
                 >
                     {({ isSubmitting, setFieldValue, values }) => (
                         <Form>
@@ -218,6 +236,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                                         />
                                         <ErrorMessage name="description" component="div" className="text-red-500 mt-1" />
                                     </div>
+                                    {!editingImageItem?._id && (
+
                                     <div>
                                         <label htmlFor="image" className="block mb-2">รูปภาพ</label>
                                         <input
@@ -232,18 +252,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                                         />
                                         <ErrorMessage name="image" component="div" className="text-red-500 mt-1" />
                                     </div>
-                                    {(editingImageItem?.image_url|| values.image) && (
+                                    )}
+                                    {(editingImageItem?.image_url || values.image) && (
                                         <div>
                                             <p className="mb-2">ตัวอย่างรูปภาพ:</p>
                                             <img
                                                 src={values.image ? URL.createObjectURL(values.image) : editingImageItem?.image_url}
                                                 alt="Preview"
                                                 className="max-w-full h-auto"
-                                                style={{
-                                                    maxHeight: '200px',
-                                                
-                                                }}
-                                                
+                                                style={{ maxHeight: '200px' }}
                                             />
                                         </div>
                                     )}
@@ -260,6 +277,27 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                         </Form>
                     )}
                 </Formik>
+            </Modal>
+
+            <Modal show={!!viewingImageItem} onClose={() => setViewingImageItem(null)}>
+                <Modal.Header>รายละเอียดรูปภาพ</Modal.Header>
+                <Modal.Body>
+                    {viewingImageItem && (
+                        <div className="space-y-4">
+                            <img
+                                src={viewingImageItem.image_url}
+                                alt={viewingImageItem.description}
+                                className="w-full h-auto max-h-96 object-contain"
+                            />
+                            <p><strong>คำอธิบาย:</strong> {viewingImageItem.description}</p>
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button color="gray" onClick={() => setViewingImageItem(null)}>
+                        ปิด
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </div>
     );
