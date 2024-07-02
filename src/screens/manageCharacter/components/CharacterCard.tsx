@@ -42,7 +42,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-ellipsis break-words ">
                     {character.name}
                 </h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-3 whitespace-nowrap text-ellipsis break-words
+                ">
                     {character.description}
                 </p>
                 <div className="flex justify-end items-center mt-4">

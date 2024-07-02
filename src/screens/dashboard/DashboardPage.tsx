@@ -3,6 +3,10 @@ import { Avatar, Badge, Card, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { HiOutlineChartPie, HiOutlineChat, HiOutlineDocumentText, HiOutlineUsers } from 'react-icons/hi';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -36,13 +40,23 @@ const DashboardPage: React.FC = () => {
     });
 
     useEffect(() => {
+        //อยู่ระหว่างการพัฒนา
+         MySwal.fire({
+            icon: "info",
+            title: "อยู่ระหว่างการพัฒนา",
+            html: "หน้านี้ยังไม่สามารถใช้งานได้",
+          });
+    }
+    , []);
+
+    useEffect(() => {
         // จำลองการเรียก API
         setTimeout(() => {
             setStats({
-                totalUsers: 5678,
-                activeChats: 123,
-                knowledgeItems: 4567,
-                charactersCount: 50,
+                totalUsers: 0,
+                activeChats: 0,
+                knowledgeItems: 0,
+                charactersCount: 0,
             });
 
             setRecentChats([

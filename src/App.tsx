@@ -15,6 +15,8 @@ import NewsPage from './screens/news/NewsPage';
 import NewProblemPage from './screens/newProblem/NewProblemPage';
 import DashboardPage from './screens/dashboard/DashboardPage';
 import Notfound from './components/common/Notfound';
+import Alert from './components/common/Alert';
+import { AlertProvider } from './contexts/AlertContext';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -28,6 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <AlertProvider>
       <div className="flex">
         {isAuthenticated && (
           <div style={{ minHeight: "100vh" }}>
@@ -66,6 +69,8 @@ function App() {
           </div>
         </div>
       </div>
+      <Alert />
+      </AlertProvider>
     </BrowserRouter>
   );
 }

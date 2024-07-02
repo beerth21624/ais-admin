@@ -7,11 +7,14 @@ import {
     Table,
     Tabs,
     TextInput,
-    Textarea
+    Textarea,
 } from 'flowbite-react';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { HiChat, HiClock, HiExclamation, HiPhone, HiTag, HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 
 interface IncomingCall {
     id: string;
@@ -34,6 +37,17 @@ const CallCenterViewPage: React.FC = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCall, setSelectedCall] = useState<IncomingCall | null>(null);
+
+
+    useEffect(() => {
+        //อยู่ระหว่างการพัฒนา
+        MySwal.fire({
+            icon: "info",
+            title: "อยู่ระหว่างการพัฒนา",
+            html: "หน้านี้ยังไม่สามารถใช้งานได้",
+        });
+    }
+        , []);
 
     const handleCallAction = (call: IncomingCall) => {
         setSelectedCall(call);
@@ -138,6 +152,10 @@ const CallCenterViewPage: React.FC = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+          
+
+            export default LoadingModal;
         </div>
     );
 };

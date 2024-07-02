@@ -8,6 +8,8 @@ import CharacterCard from './components/CharacterCard'
 import ModalActionCharacter from './components/ModalActionCharacter'
 const MySwal = withReactContent(Swal)
 
+
+
 //service
 import { CharacterService } from '../../services'
 
