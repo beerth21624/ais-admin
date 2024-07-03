@@ -13,7 +13,8 @@ import {
   HiHome,
   HiExclamationCircle,
   HiPhone,
-  HiNewspaper
+  HiNewspaper,
+  HiChat
 } from "react-icons/hi";
 
 const theme: CustomFlowbiteTheme["sidebar"] = {
@@ -120,6 +121,14 @@ const SideNav = () => {
                 {!isCollapsed && "คลังความรู้"}
               </Sidebar.Item>
               <Sidebar.Item
+                href="/test-chat"
+                icon={HiChat}
+                active={path === "test-chat"}
+                tooltip="Test Chat"
+              >
+                {!isCollapsed && "Test Chat"}
+              </Sidebar.Item>
+              <Sidebar.Item
                 href="/problem"
                 icon={HiExclamationCircle}
                 active={path === "problem"}
@@ -143,6 +152,8 @@ const SideNav = () => {
               >
                 {!isCollapsed && "ข่าว"}
               </Sidebar.Item>
+            
+
             </>
           )}
 

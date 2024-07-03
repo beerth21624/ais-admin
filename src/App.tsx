@@ -17,6 +17,7 @@ import DashboardPage from './screens/dashboard/DashboardPage';
 import Notfound from './components/common/Notfound';
 import Alert from './components/common/Alert';
 import { AlertProvider } from './contexts/AlertContext';
+import TestChat from './screens/testChat/TestChat';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -62,6 +63,7 @@ function App() {
                   <Route path="/news" element={<NewsPage />} />
                   <Route path="/problem" element={<NewProblemPage />} />
                   <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/test-chat" element={<TestChat />} />
                 </Route>
                 <Route path="*" element={<Notfound />} />
               </Routes>

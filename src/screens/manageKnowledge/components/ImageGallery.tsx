@@ -140,7 +140,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
                 if (values.image) {
                     formData.append('image', values.image);
                 }
-                response = await KnowledgeService.createKnowledgeImage(folder_id, formData);
+                response = await KnowledgeService.createKnowledgeImage(folder_id, formData)
             }
 
             if (response.status === 200 || response.status === 201) {
